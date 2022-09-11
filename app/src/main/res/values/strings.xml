@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Marvel app</string>
+    <string name="back">back</string>
+    <string name="endereco_text">"Sede atual dos Vingadores: %1$s"</string>
+    <string name="service_not_available">Serviço indisponível</string>
+    <string name="invalid_lat_long_used">invalid latitude longitude used</string>
+    <string name="no_address_found">Endereço não encontrado</string>
+    <string name="permissao_negada">permissão negada!</string>
+    <string name="loading">Carregando...</string>
 </resources>
