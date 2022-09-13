@@ -7,4 +7,5 @@
     <string name="no_address_found">Endereço não encontrado</string>
     <string name="permissao_negada">permissão negada!</string>
     <string name="loading">Carregando...</string>
+    <string name="Localizacao">Localização</string>
 </resources>

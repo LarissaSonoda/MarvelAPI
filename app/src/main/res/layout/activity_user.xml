@@ -78,6 +78,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username"
         app:layout_constraintVertical_bias="0.22" />
+    <com.example.marvelapp.ProgressButtonNormal
+        android:id="@+id/ProgressButton"
+        android:layout_width="374dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEndereco"
+        />
 
     <Button
         android:id="@+id/btnExit"
@@ -91,16 +100,5 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/btnLocal"
-        android:layout_width="56dp"
-        android:layout_height="65dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnExit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.392"
-        app:layout_constraintStart_toEndOf="@+id/txtEndereco"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.383"
-        app:srcCompat="@drawable/local" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,9 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/sonod_6ehjwcc/Desktop/MARVEL API/app/src/main/res/drawable/button_bg_disabled.xml" value="0.2" />
+        <entry key="..\:/Users/sonod_6ehjwcc/Desktop/MARVEL API/app/src/main/res/drawable/button_bg_normal.xml" value="0.2065" />
+        <entry key="..\:/Users/sonod_6ehjwcc/Desktop/MARVEL API/app/src/main/res/drawable/progress_button_background.xml" value="0.2065" />
         <entry key="..\:/Users/sonod_6ehjwcc/Desktop/MARVEL API/app/src/main/res/layout/activity_home.xml" value="0.17980072463768115" />
         <entry key="..\:/Users/sonod_6ehjwcc/Desktop/MARVEL API/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/sonod_6ehjwcc/Desktop/MARVEL API/app/src/main/res/layout/activity_user.xml" value="0.25" />
+        <entry key="..\:/Users/sonod_6ehjwcc/Desktop/MARVEL API/app/src/main/res/layout/progress_bar.xml" value="0.1" />
       </map>
     </option>
   </component>
