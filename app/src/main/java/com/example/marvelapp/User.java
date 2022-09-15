@@ -68,7 +68,7 @@ public class User extends AppCompatActivity implements FetchAddressTask.OnTaskCo
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(
                 this);
         mLocationTextView = (TextView) findViewById(R.id.txtEndereco);
-        mLocationBtn = (ImageView) findViewById(R.id.btnLocal);
+       // mLocationBtn = (ImageView) findViewById(R.id.btnLocal);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(
                 this);

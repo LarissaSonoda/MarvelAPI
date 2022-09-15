@@ -3,17 +3,23 @@ package com.example.marvelapp;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatRatingBar;
 import androidx.core.content.res.ResourcesCompat;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class ProgressButtonNormal extends AppCompatButton {
     Drawable mLocalButtonProgress;
+    ProgressBar progressbar;
 
     public ProgressButtonNormal(Context context){
         super(context);
@@ -34,8 +40,84 @@ public class ProgressButtonNormal extends AppCompatButton {
             @RequiresApi(api= Build.VERSION_CODES.JELLY_BEAN_MR1)
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                 progressbar.setVisibility(View.VISIBLE);
+                if ((getCompoundDrawablesRelative()[2] != null)) {
+
+                    //um boolean que pode ser atualizado dinamicamente
+                    AtomicBoolean isProgressButtonClicked = new AtomicBoolean(false);
+
+                        // verifica o clique do botão
+                        if (isProgressButtonClicked.get()) {
+                            // Verifica o ACTION_DOWN (sempre ocorre antes do ACTION_UP).
+                            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                                // troca a versão do botão
+                                mLocalButtonProgress =
+                                        ResourcesCompat.getDrawable(getResources(),
+                                                R.drawable.button_bg_normal, null);
+                                showClearButton();
+                            }
+                            // Verifica o  ACTION_UP.
+                            if (event.getAction() == MotionEvent.ACTION_UP) {
+                                // Troca pela versão opaca
+                                mLocalButtonProgress =
+                                        ResourcesCompat.getDrawable(getResources(),
+                                                R.drawable.button_bg_disabled, null);
+
+                                //esconde o botão
+                                hideClearButton();
+                                return true;
+                            }
+                        } else {
+                            return false;
+                        }
+                    }
                 return false;
             }
         });
+        // Se o texto muda mostra/oculta o botão
+        addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s,
+                                          int start, int count, int after) {
+                // Do nothing.
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s,
+                                      int start, int before, int count) {
+                showClearButton();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Do nothing.
+            }
+        });
+    }
+
+    //exibição do botão
+    private void showClearButton() {
+        // Define  aposição do drawable
+        //exige versão minima do sdk
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            setCompoundDrawablesRelativeWithIntrinsicBounds
+                    (null,                      // Inicio do texto
+                            null,               // Topo do texto.
+                            mLocalButtonProgress,  // Fim do Texto
+                            null);              // Abaixo do texto
+        }
+    }
+
+    /**
+     * oculta o botão
+     */
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    private void hideClearButton() {
+
+        setCompoundDrawablesRelativeWithIntrinsicBounds
+                (null,             // Inicio do texto
+                        null,      // Topo do texto
+                        null,      // Fim do texto
+                        null);     // Abaixo do texto.
     }
 }

@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="45dp"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:splitMotionEvents="true"
     tools:background="@drawable/progress_button_background">
 
     <TextView
+        android:id="@+id/txtTitleBtnLocal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txtTitleBtnLocal"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
         android:paddingLeft="15dp"
+        android:paddingTop="6dp"
         android:paddingRight="15dp"
+        android:paddingBottom="6dp"
+        android:text="@string/Localizacao"
         android:textAllCaps="true"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/Localizacao"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/progress_local"
+        android:visibility="gone"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="6dp"
