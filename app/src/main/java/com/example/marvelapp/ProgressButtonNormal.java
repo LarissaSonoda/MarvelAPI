@@ -24,6 +24,7 @@ public class ProgressButtonNormal extends AppCompatButton {
     public ProgressButtonNormal(Context context){
         super(context);
         init();
+        
     }
 
     public ProgressButtonNormal(Context context,
