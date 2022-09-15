@@ -24,7 +24,7 @@ public class ProgressButtonNormal extends AppCompatButton {
     public ProgressButtonNormal(Context context){
         super(context);
         init();
-        
+
     }
 
     public ProgressButtonNormal(Context context,
@@ -41,7 +41,6 @@ public class ProgressButtonNormal extends AppCompatButton {
             @RequiresApi(api= Build.VERSION_CODES.JELLY_BEAN_MR1)
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                 progressbar.setVisibility(View.VISIBLE);
                 if ((getCompoundDrawablesRelative()[2] != null)) {
 
                     //um boolean que pode ser atualizado dinamicamente
@@ -55,7 +54,7 @@ public class ProgressButtonNormal extends AppCompatButton {
                                 mLocalButtonProgress =
                                         ResourcesCompat.getDrawable(getResources(),
                                                 R.drawable.button_bg_normal, null);
-                                showClearButton();
+                                showProgressButton();
                             }
                             // Verifica o  ACTION_UP.
                             if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -63,9 +62,8 @@ public class ProgressButtonNormal extends AppCompatButton {
                                 mLocalButtonProgress =
                                         ResourcesCompat.getDrawable(getResources(),
                                                 R.drawable.button_bg_disabled, null);
+                                progressbar.setVisibility(View.VISIBLE);
 
-                                //esconde o botão
-                                hideClearButton();
                                 return true;
                             }
                         } else {
@@ -75,7 +73,7 @@ public class ProgressButtonNormal extends AppCompatButton {
                 return false;
             }
         });
-        // Se o texto muda mostra/oculta o botão
+      /*  // Se o texto muda mostra/oculta o botão
         addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s,
@@ -86,18 +84,18 @@ public class ProgressButtonNormal extends AppCompatButton {
             @Override
             public void onTextChanged(CharSequence s,
                                       int start, int before, int count) {
-                showClearButton();
+                showProgressButton();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 // Do nothing.
             }
-        });
+        });*/
     }
 
     //exibição do botão
-    private void showClearButton() {
+    private void showProgressButton() {
         // Define  aposição do drawable
         //exige versão minima do sdk
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -109,16 +107,4 @@ public class ProgressButtonNormal extends AppCompatButton {
         }
     }
 
-    /**
-     * oculta o botão
-     */
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    private void hideClearButton() {
-
-        setCompoundDrawablesRelativeWithIntrinsicBounds
-                (null,             // Inicio do texto
-                        null,      // Topo do texto
-                        null,      // Fim do texto
-                        null);     // Abaixo do texto.
-    }
 }
