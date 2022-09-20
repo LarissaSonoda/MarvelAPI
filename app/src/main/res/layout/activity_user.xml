@@ -50,7 +50,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@android:drawable/ic_menu_revert" />
+        tools:srcCompat="@android:drawable/ic_menu_revert"
+        android:onClick="back"/>
 
     <TextView
         android:id="@+id/username"
@@ -79,15 +80,21 @@
         app:layout_constraintTop_toBottomOf="@+id/username"
         app:layout_constraintVertical_bias="0.22" />
 
-    <com.example.marvelapp.ProgressButtonNormal
-        android:id="@+id/ProgressButton"
-        android:layout_width="match parent"
-        android:layout_height="64dp"
-        android:layout_marginTop="6dp"
+    <include
+        android:id="@+id/btnLocal"
+        layout="@layout/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginBottom="64dp"
         app:layout_constraintBottom_toTopOf="@+id/btnExit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEndereco" />
+        app:layout_constraintTop_toBottomOf="@+id/txtEndereco"
+        app:layout_constraintVertical_bias="1.0"
+        android:clickable="true"
+        >
+
+    </include>
 
     <Button
         android:id="@+id/btnExit"

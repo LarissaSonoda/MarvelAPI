@@ -1,25 +1,27 @@
 package com.example.marvelapp;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.text.Layout;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatRatingBar;
 import androidx.core.content.res.ResourcesCompat;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ProgressButtonNormal extends AppCompatButton {
     Drawable mLocalButtonProgress;
-    ProgressBar progressbar;
+    ProgressBar progressbar = findViewById(R.id.progress_local);
+
 
     public ProgressButtonNormal(Context context){
         super(context);
@@ -35,8 +37,8 @@ public class ProgressButtonNormal extends AppCompatButton {
     }
 
     private void init(){
-        mLocalButtonProgress = ResourcesCompat.getDrawable(getResources(), R.drawable.button_bg_normal, null);
-
+         mLocalButtonProgress =  ResourcesCompat.getDrawable(getResources(),
+                 R.drawable.button_bg_normal, null);
         setOnTouchListener(new OnTouchListener() {
             @RequiresApi(api= Build.VERSION_CODES.JELLY_BEAN_MR1)
             @Override
@@ -61,7 +63,7 @@ public class ProgressButtonNormal extends AppCompatButton {
                                 // Troca pela versão opaca
                                 mLocalButtonProgress =
                                         ResourcesCompat.getDrawable(getResources(),
-                                                R.drawable.button_bg_disabled, null);
+                                                R.drawable.button_bg_normal, null);
                                 progressbar.setVisibility(View.VISIBLE);
 
                                 return true;

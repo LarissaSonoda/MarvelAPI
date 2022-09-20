@@ -8,4 +8,7 @@
     <string name="permissao_negada">permissão negada!</string>
     <string name="loading">Carregando...</string>
     <string name="Localizacao">Localização</string>
+    <string name="search">search</string>
+    <string name="user">usuário</string>
+    <string name="sttg">configurações</string>
 </resources>

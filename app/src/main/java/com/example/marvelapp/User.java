@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +39,7 @@ import java.util.Locale;
 
 public class User extends AppCompatActivity implements FetchAddressTask.OnTaskCompleted {
     // Arquivo shared preferences
-    public static final String PREFERENCIAS_NAME = "com.example.android.localizacao";
+    public static final String PREFERENCIAS_NAME = "com.example.android.geolocalizacao";
     private static final String TRACKING_LOCATION_KEY = "tracking_location";
     // Constantes
     private static final int REQUEST_LOCATION_PERMISSION = 1;
@@ -59,7 +60,8 @@ public class User extends AppCompatActivity implements FetchAddressTask.OnTaskCo
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback mLocationCallback;
     private TextView mLocationTextView;
-    private ImageView mLocationBtn;
+    private View mLocationBtn;
+    ProgressBar progressbar = findViewById(R.id.progress_local);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +70,7 @@ public class User extends AppCompatActivity implements FetchAddressTask.OnTaskCo
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(
                 this);
         mLocationTextView = (TextView) findViewById(R.id.txtEndereco);
-       // mLocationBtn = (ImageView) findViewById(R.id.btnLocal);
+        mLocationBtn = (View) findViewById(R.id.btnLocal);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(
                 this);
@@ -107,9 +109,7 @@ public class User extends AppCompatActivity implements FetchAddressTask.OnTaskCo
             public void onClick(View v) {
                 if (!mTrackingLocation) {
                     iniciarLocal();
-                    //Intent it = new Intent(Intent.ACTION_WEB_SEARCH);
-                    //it.putExtra(SearchManager.QUERY, "Lojas Geek próximas "+ lastAdress);
-                    //startActivity(it);
+
                 } else {
                     pararLocal();
                 }
@@ -119,8 +119,8 @@ public class User extends AppCompatActivity implements FetchAddressTask.OnTaskCo
         mPreferences = getSharedPreferences(PREFERENCIAS_NAME, MODE_PRIVATE);
         //recupera as preferencias
         recuperar();
-
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -186,14 +186,15 @@ public class User extends AppCompatActivity implements FetchAddressTask.OnTaskCo
             );
 
             mLocationTextView.setText(getString(R.string.endereco_text));
+            progressbar.setVisibility(View.VISIBLE);
         }
     }
 
 
 
     public void back(View view){
-      //  Intent voltar = new Intent(this, HomeActivity.class);
-      //  startActivity(voltar);
+       Intent voltar = new Intent(this, Home.class);
+      startActivity(voltar);
     }
 
     private void pararLocal() {
