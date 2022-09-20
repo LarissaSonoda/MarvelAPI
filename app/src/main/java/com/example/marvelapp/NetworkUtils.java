@@ -16,7 +16,7 @@ import java.net.URL;
 
 public class NetworkUtils {
     private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
-    private static final String MARVEL_URL = "http://makeup-api.herokuapp.com/api/v1/products.json?";
+    private static final String MARVEL_URL = "gateway.marvel.com";
     private static final String API_KEY = "196673e041f9190f73350df2499c7e13";
     private static final String MAX_RESULTS = "maxResults";
     private static final String TYPE_PRINT = "printType";
@@ -70,16 +70,16 @@ public class NetworkUtils {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
         String marvelJSONString = null;
-        String apiDomain = "gateway.marvel.com:443";
 
         try{
             Uri.Builder uriBuilder = new Uri.Builder();
             uriBuilder.scheme("https")
-                    .authority( apiDomain )
+                    .authority( MARVEL_URL + ":443" )
+                    //.authority(":443")
                     .appendPath("v1")
                     .appendPath("public")
-                    .appendPath("characters?nameStartsWith=")
-                    .appendPath( nameStartWith )
+                    .appendPath("characters")
+                    .appendQueryParameter("nameStartsWith", nameStartWith)
                     .appendQueryParameter("apikey", API_KEY)
                     .build();
             URL requestURL = new URL(uriBuilder.toString());

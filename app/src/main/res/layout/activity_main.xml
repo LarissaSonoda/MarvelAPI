@@ -16,12 +16,13 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logo"
+        android:contentDescription="TODO" />
 
     <EditText
         android:id="@+id/edtTxtLogin"
         android:layout_width="248dp"
-        android:layout_height="46dp"
+        android:layout_height="48dp"
         android:layout_marginTop="100dp"
         android:background="@color/white"
         android:ems="10"
@@ -39,7 +40,7 @@
     <EditText
         android:id="@+id/edtTxtPsswd"
         android:layout_width="240dp"
-        android:layout_height="43dp"
+        android:layout_height="48dp"
         android:background="@color/white"
         android:ems="10"
         android:hint="Senha"
@@ -58,6 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/black"
+        android:onClick="home"
         android:text="GET IN!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
