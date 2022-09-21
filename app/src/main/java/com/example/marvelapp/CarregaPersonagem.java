@@ -2,7 +2,6 @@ package com.example.marvelapp;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.loader.content.AsyncTaskLoader;
 
@@ -23,6 +22,6 @@ public class CarregaPersonagem extends AsyncTaskLoader<String> {
     @Nullable
     @Override
     public String loadInBackground() {
-        return NetworkUtils.searchCharacter(nameStartsWith);
+        return NetworkUtils.searchCharacters(nameStartsWith);
     }
 }

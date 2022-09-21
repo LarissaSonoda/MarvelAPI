@@ -21,6 +21,7 @@ public class NetworkUtils {
     private static final String MAX_RESULTS = "maxResults";
     private static final String TYPE_PRINT = "printType";
 
+
     static String searchCharacters(String queryString){
         String marvelJSONString = null;
 
@@ -31,32 +32,39 @@ public class NetworkUtils {
             }
 
             JSONObject marvelJSONObject = new JSONObject(marvelJSONString);
-
             String name = null;
             String thumbnail = null;
             String series = null;
             String comics = null;
 
+            //Busca
+            marvelJSONString = searchCharacter(queryString);
+            JSONArray characterJSONArray = new JSONArray(marvelJSONString);
+            // Procurando pelos itens
+            try {
+                if (characterJSONArray.length() < 1){
+                    return null;
+                }
+                JSONObject characterJSONObject = characterJSONArray.getJSONObject(0);
 
-            try{
-                name = marvelJSONObject.getString("name");
-                thumbnail = marvelJSONObject.getString("thumbnail");
-                series = marvelJSONObject.getString("series");
-                comics = marvelJSONObject.getString("comics");
-
-            } catch (JSONException e){
+                name= characterJSONObject.getString("name");
+                thumbnail= characterJSONObject.getString("thumbnail");
+                series = characterJSONObject.getString("series");
+                comics = characterJSONObject.getString("comics");
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
+            // Criando JSON com os dados
+            JSONObject InfoJSONObject = new JSONObject();
+            try {
+                InfoJSONObject.put("name", name);
+                InfoJSONObject.put("thumbnail", thumbnail);
+                InfoJSONObject.put("series", series);
+                InfoJSONObject.put("comics", comics);
 
-            JSONObject productJSONObject = new JSONObject();
-            try{
-                productJSONObject.put("name", name);
-                productJSONObject.put("thumbnail", thumbnail);
-                productJSONObject.put("series", series);
-                productJSONObject.put("comics", comics);
+                marvelJSONString = InfoJSONObject.toString();
 
-                marvelJSONString = marvelJSONObject.toString();
-            } catch (JSONException e){
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         } catch (JSONException e) {
@@ -66,44 +74,49 @@ public class NetworkUtils {
         return marvelJSONString;
     }
 
-    static String searchCharacter(String nameStartWith){
+    static String searchCharacter(String nameStartsWith) {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
         String marvelJSONString = null;
 
-        try{
+        try {
             Uri.Builder uriBuilder = new Uri.Builder();
             uriBuilder.scheme("https")
-                    .authority( MARVEL_URL + ":443" )
+                    .encodedAuthority("gateway.marvel.com:443")
                     //.authority(":443")
                     .appendPath("v1")
                     .appendPath("public")
                     .appendPath("characters")
-                    .appendQueryParameter("nameStartsWith", nameStartWith)
+                    .appendQueryParameter("nameStartsWith", nameStartsWith)
                     .appendQueryParameter("apikey", API_KEY)
                     .build();
             URL requestURL = new URL(uriBuilder.toString());
-            urlConnection = (HttpURLConnection) requestURL.openConnection();
-            urlConnection.setRequestMethod("GET");
-            urlConnection.connect();
+            try {
+                urlConnection = (HttpURLConnection) requestURL.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
 
-            InputStream inputStream = urlConnection.getInputStream();
-            reader = new BufferedReader(new InputStreamReader(inputStream));
-            StringBuilder builder = new StringBuilder();
+                InputStream inputStream = urlConnection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+                StringBuilder builder = new StringBuilder();
 
-            String line;
-            while ((line = reader.readLine()) != null) {
-                builder.append(line);
-                builder.append("\n");
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    builder.append(line);
+                    builder.append("\n");
+                }
+
+                if (builder.length() == 0) {
+                    return null;
+                }
+
+                marvelJSONString = builder.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
-            if (builder.length() == 0) {
-                return null;
-            }
-
-            marvelJSONString = builder.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
+        }catch (IOException e) {
+        e.printStackTrace();
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();

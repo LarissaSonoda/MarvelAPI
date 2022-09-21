@@ -1,12 +1,7 @@
 package com.example.marvelapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.SearchManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -16,7 +11,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,14 +47,12 @@ public class User extends AppCompatActivity implements FetchAddressTask.OnTaskCo
 
     // Shared preferences
     private SharedPreferences mPreferences;
-    private String lastLatitude = "";
-    private String lastLongitude = "";
     private String lastAdress = "";
 
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback mLocationCallback;
     private TextView mLocationTextView;
-    private View mLocationBtn;
+    private Button mLocationBtn;
     ProgressBar progressbar = findViewById(R.id.progress_local);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +62,7 @@ public class User extends AppCompatActivity implements FetchAddressTask.OnTaskCo
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(
                 this);
         mLocationTextView = (TextView) findViewById(R.id.txtEndereco);
-        mLocationBtn = (View) findViewById(R.id.btnLocal);
+        mLocationBtn = (Button) findViewById(R.id.btnLocal);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(
                 this);
@@ -207,8 +199,6 @@ public class User extends AppCompatActivity implements FetchAddressTask.OnTaskCo
         if (mTrackingLocation) {
             // Update the UI
             lastAdress = result[0];
-            lastLatitude = result[1];
-            lastLongitude = result[2];
             mLocationTextView.setText(getString(R.string.endereco_text));
         }
     }
@@ -222,11 +212,9 @@ public class User extends AppCompatActivity implements FetchAddressTask.OnTaskCo
     //Armazena as preferencias do usuário
     //na aplicação será armazenada a última localização
 
-    private void armazenar(String latitude, String longitude, String lastAdress) {
+    private void armazenar(String lastAdress) {
         SharedPreferences.Editor preferencesEditor = mPreferences.edit();
         preferencesEditor.putString(LASTADRESS_KEY, lastAdress);
-        preferencesEditor.putString(LATITUDE_KEY, latitude);
-        preferencesEditor.putString(LONGITUDE_KEY, longitude);
         preferencesEditor.apply();
     }
 
@@ -235,7 +223,7 @@ public class User extends AppCompatActivity implements FetchAddressTask.OnTaskCo
         if (mTrackingLocation) {
             pararLocal();
             mTrackingLocation = true;
-            armazenar(lastLatitude, lastLongitude, lastAdress);
+            armazenar(lastAdress);
         }
         super.onPause();
     }
@@ -252,8 +240,6 @@ public class User extends AppCompatActivity implements FetchAddressTask.OnTaskCo
     private void recuperar() {
         SharedPreferences mPreferences = getSharedPreferences(PREFERENCIAS_NAME, 0);
         lastAdress = mPreferences.getString(LASTADRESS_KEY, "");
-        lastLatitude = mPreferences.getString(LATITUDE_KEY, "");
-        lastLongitude = mPreferences.getString(LONGITUDE_KEY, "");
-        Toast.makeText(this, getString(R.string.endereco_text, lastAdress, lastLongitude, lastLatitude), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.endereco_text, lastAdress), Toast.LENGTH_SHORT).show();
     }
 }

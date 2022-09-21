@@ -1,6 +1,7 @@
 package com.example.marvelapp;
 
 import java.io.Serializable;
+import com.example.marvelapp.R;
 
 public class Usuario implements Serializable {
     private String UserCode, UserName, UserEmail, UserPassword;

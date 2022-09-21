@@ -1,13 +1,13 @@
 package com.example.marvelapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.marvelapp.DAO.UserDAO;
 
@@ -21,10 +21,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        btnLogin= (Button) findViewById(R.id.btnLogin);
+        btnLogin.setOnClickListener(onClickLogin);
     }
+    private View.OnClickListener onClickLogin = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
 
-    public void home(View v){
-       Intent homeActivity = new Intent(this, Home.class);
-       startActivity(homeActivity);
-    }
+            // TODO Auto-generated method stub
+
+            Intent i = new Intent(MainActivity.this , Home.class);
+            //startActivityForResult(i, ADD);
+            startActivity(i);
+        }
+
+    };
+
+
+    // public void home(View v){
+     //  Intent homeActivity = new Intent(this, Home.class);
+       //startActivity(homeActivity);
+    //}
 }
