@@ -51,12 +51,11 @@ public class ProgressButtonNormal extends AppCompatButton {
                                 // troca a versão do botão
                                 mLocalButtonProgress =
                                         ResourcesCompat.getDrawable(getResources(),
-                                                R.drawable.button_bg_normal, null);
+                                                R.drawable.button_bg_disabled, null);
                                 showProgressButton();
                             }
                             // Verifica o  ACTION_UP.
                             if (event.getAction() == MotionEvent.ACTION_UP) {
-                                // Troca pela versão opaca
                                 mLocalButtonProgress =
                                         ResourcesCompat.getDrawable(getResources(),
                                                 R.drawable.button_bg_normal, null);
@@ -71,25 +70,6 @@ public class ProgressButtonNormal extends AppCompatButton {
                 return false;
             }
         });
-      /*  // Se o texto muda mostra/oculta o botão
-        addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s,
-                                          int start, int count, int after) {
-                // Do nothing.
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s,
-                                      int start, int before, int count) {
-                showProgressButton();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // Do nothing.
-            }
-        });*/
     }
 
     //exibição do botão
