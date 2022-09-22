@@ -26,7 +26,7 @@
         android:layout_marginTop="100dp"
         android:background="@color/white"
         android:ems="10"
-        android:hint="Login"
+        android:hint="Nome para Login"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:textColorHint="@color/background"
@@ -55,11 +55,11 @@
         app:layout_constraintVertical_bias="0.284" />
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/black"
-        android:text="GET IN!"
+        android:text="Login"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

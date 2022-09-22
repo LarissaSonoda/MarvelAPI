@@ -20,7 +20,6 @@
         android:id="@+id/textView2"
         android:layout_width="416dp"
         android:layout_height="76dp"
-        android:background="@color/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
@@ -99,11 +98,13 @@
         android:layout_marginTop="68dp"
         android:layout_marginBottom="38dp"
         android:text="@string/Localizacao"
+        android:backgroundTint="@color/background"
         app:layout_constraintBottom_toTopOf="@+id/btnExit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEndereco" />
+        app:layout_constraintTop_toBottomOf="@+id/txtEndereco">
+    </Button>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

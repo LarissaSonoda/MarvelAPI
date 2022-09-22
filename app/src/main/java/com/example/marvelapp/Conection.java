@@ -18,21 +18,12 @@ public class Conection extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE tbUser(" +
                 "UserCode INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "UserName TEXT NOT NULL," +
-                "UserEmail TEXT NOT NULL," +
-                "UserPassword TEXT NOT NULL," +
-                "UserImage BYTE)");
-        db.execSQL("CREATE TABLE tbProduct(" +
-                "ProductCode INTEGER PRIMARY KEY," +
-                "ProductName TEXT NOT NULL," +
-                "ProductPrice TEXT NOT NULL," +
-                "ProductCategory TEXT NOT NULL," +
-                "ProductTag TEXT NOT NULL)");
+                "UserPassword TEXT NOT NULL)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         db.execSQL("DROP TABLE IF EXISTS tbUser");
-        db.execSQL("DROP TABLE IF EXISTS tbProduct");
 
         onCreate(db);
     }

@@ -13,6 +13,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class NetworkUtils {
     private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
@@ -20,40 +23,39 @@ public class NetworkUtils {
     private static final String API_KEY = "196673e041f9190f73350df2499c7e13";
     private static final String MAX_RESULTS = "maxResults";
     private static final String TYPE_PRINT = "printType";
+    private static final String API_PRIVATE = "4f50d4aaee9cb0c429e85a33250604a13ba7a1df";
 
 
     static String searchCharacters(String queryString){
         String marvelJSONString = null;
 
         try{
+            //Busca
             marvelJSONString = searchCharacter(queryString);
+            JSONArray characterJSONArray = new JSONArray(marvelJSONString);
+
             if(marvelJSONString == null){
                 return null;
             }
-
-            JSONObject marvelJSONObject = new JSONObject(marvelJSONString);
             String name = null;
             String thumbnail = null;
             String series = null;
             String comics = null;
 
-            //Busca
-            marvelJSONString = searchCharacter(queryString);
-            JSONArray characterJSONArray = new JSONArray(marvelJSONString);
             // Procurando pelos itens
+                JSONObject characterJSONObject = characterJSONArray.getJSONObject(0);
             try {
-                if (characterJSONArray.length() < 1){
+                if (characterJSONArray.length() < 1) {
                     return null;
                 }
-                JSONObject characterJSONObject = characterJSONArray.getJSONObject(0);
-
-                name= characterJSONObject.getString("name");
-                thumbnail= characterJSONObject.getString("thumbnail");
+                name = characterJSONObject.getString("name");
+                thumbnail = characterJSONObject.getString("thumbnail");
                 series = characterJSONObject.getString("series");
                 comics = characterJSONObject.getString("comics");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
             // Criando JSON com os dados
             JSONObject InfoJSONObject = new JSONObject();
             try {
@@ -77,18 +79,29 @@ public class NetworkUtils {
     static String searchCharacter(String nameStartsWith) {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
-        String marvelJSONString = null;
+        String MarvelJSONString = null;
 
         try {
+            String ts = String.valueOf (System.currentTimeMillis ());
+            String input  = ts+ API_PRIVATE+API_KEY;
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(input.getBytes(StandardCharsets.UTF_8));
+            byte[] hashBytes = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hashBytes) {
+                sb.append(String.format("%02x", b));
+            }
+            String  hash = sb.toString();
             Uri.Builder uriBuilder = new Uri.Builder();
             uriBuilder.scheme("https")
                     .encodedAuthority("gateway.marvel.com:443")
-                    //.authority(":443")
                     .appendPath("v1")
                     .appendPath("public")
                     .appendPath("characters")
                     .appendQueryParameter("nameStartsWith", nameStartsWith)
                     .appendQueryParameter("apikey", API_KEY)
+                    .appendQueryParameter("ts", ts)
+                    .appendQueryParameter("hash",hash)
                     .build();
             URL requestURL = new URL(uriBuilder.toString());
             try {
@@ -110,12 +123,12 @@ public class NetworkUtils {
                     return null;
                 }
 
-                marvelJSONString = builder.toString();
+                MarvelJSONString = builder.toString();
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-        }catch (IOException e) {
+        }catch (IOException | NoSuchAlgorithmException e) {
         e.printStackTrace();
         } finally {
             if (urlConnection != null) {
@@ -130,7 +143,7 @@ public class NetworkUtils {
             }
         }
 
-        Log.d(LOG_TAG, marvelJSONString);
-        return marvelJSONString;
+        Log.d(LOG_TAG, MarvelJSONString);
+        return MarvelJSONString;
     }
 }

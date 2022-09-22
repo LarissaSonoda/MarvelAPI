@@ -12,10 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-
+        android:contentDescription="@string/add_widget"
         android:layout_margin="3dp"
         app:srcCompat="@drawable/avengers_infinity_war_family_png"
+        tools:ignore="ImageContrastCheck"
         tools:srcCompat="@drawable/avengers_infinity_war_family_png">
-
     </ImageView>
 </LinearLayout>

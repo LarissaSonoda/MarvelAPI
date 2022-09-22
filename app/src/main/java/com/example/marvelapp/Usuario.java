@@ -1,20 +1,16 @@
 package com.example.marvelapp;
 
 import java.io.Serializable;
-import com.example.marvelapp.R;
 
 public class Usuario implements Serializable {
-    private String UserCode, UserName, UserEmail, UserPassword;
-    private byte[] UserImage;
+    private String UserCode, UserName, UserPassword;
 
     public Usuario(){ }
 
-    public Usuario(String userCode, String userName, String userEmail, String userPassword, byte[] userImage){
+    public Usuario(String userCode, String userName, String userPassword){
         UserCode = userCode;
         UserName = userName;
-        UserEmail = userEmail;
         UserPassword = userPassword;
-        UserImage = userImage;
     }
 
     public String getUserCode() {
@@ -33,14 +29,6 @@ public class Usuario implements Serializable {
         UserName = userName;
     }
 
-    public String getUserEmail() {
-        return UserEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        UserEmail = userEmail;
-    }
-
     public String getUserPassword() {
         return UserPassword;
     }
@@ -49,11 +37,4 @@ public class Usuario implements Serializable {
         UserPassword = userPassword;
     }
 
-    public byte[] getUserImage() {
-        return UserImage;
-    }
-
-    public void setUserImage(byte[] userImage) {
-        UserImage = userImage;
-    }
 }

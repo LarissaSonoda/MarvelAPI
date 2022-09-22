@@ -1,11 +1,11 @@
 package com.example.marvelapp.DAO;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.marvelapp.Conection;
-import com.example.marvelapp.User;
 import com.example.marvelapp.Usuario;
 
 public class UserDAO {
@@ -20,25 +20,21 @@ public class UserDAO {
     public long insertUser(Usuario user) {
         ContentValues values = new ContentValues();
         values.put("UserName", user.getUserName());
-        values.put("UserEmail", user.getUserEmail());
         values.put("UserPassword", user.getUserPassword());
-        values.put("UserImage", user.getUserImage());
 
         return database.insert("tbUser", null, values);
     }
 
-    public Usuario selectUserByEmail(String email) {
+    public Usuario selectUserByName(String name) {
         Usuario user = new Usuario();
         Cursor cursor = database.query("tbUser",
                 new String[]{
                         "UserCode, " +
                                 "UserName, " +
-                                "UserEmail, " +
-                                "UserPassword," +
-                                "UserImage"
+                                "UserPassword"
                 },
-                "UserEmail = ?",
-                new String[]{email},
+                "UserName = ?",
+                new String[]{name},
                 null,
                 null,
                 null,
@@ -47,9 +43,7 @@ public class UserDAO {
         while (cursor.moveToNext()) {
             user.setUserCode(cursor.getString(0));
             user.setUserName(cursor.getString(1));
-            user.setUserEmail(cursor.getString(2));
-            user.setUserPassword(cursor.getString(3));
-            user.setUserImage(cursor.getBlob(4));
+            user.setUserPassword(cursor.getString(2));
         }
 
         return user;
@@ -58,15 +52,13 @@ public class UserDAO {
     public long updateUser(Usuario user) {
         ContentValues values = new ContentValues();
         values.put("UserName", user.getUserName());
-        values.put("UserEmail", user.getUserEmail());
         values.put("UserPassword", user.getUserPassword());
-        values.put("UserImage", user.getUserImage());
 
         return database.update("tbUser", values, "userCode = ?", new String[]{user.getUserCode()});
     }
 
-    public Boolean checkLogin(String email, String password) {
-        Cursor cursor = database.rawQuery("SELECT * FROM tbUser WHERE userEmail = ? AND userPassword = ?", new String[]{email, password});
+    public Boolean checkLogin(String name, String password) {
+        Cursor cursor = database.rawQuery("SELECT * FROM tbUser WHERE userName = ? AND userPassword = ?", new String[]{name, password});
 
         return cursor.getCount() > 0;
     }

@@ -91,15 +91,16 @@ public class Home extends AppCompatActivity implements LoaderManager.LoaderCallb
             else {
                 if (queryname.length() == 0) {
                     txtErrorMessage.setVisibility(View.VISIBLE);
+                    Intro.setVisibility(View.INVISIBLE);
                     txtErrorMessage.setText("⚠  Informe um personagem");
                     //Toast.makeText(getApplicationContext(), "⚠  Informe um personagem", Toast.LENGTH_SHORT).show();
                 } else {
                     txtErrorMessage.setVisibility(View.VISIBLE);
+                    Intro.setVisibility(View.GONE);
                     txtErrorMessage.setText("⚠  Verifique sua conexão!");
                     // Toast.makeText(getApplicationContext(), "⚠  Verifique sua conexão!", Toast.LENGTH_SHORT).show();
                 }
             }
-
 
         }
 
@@ -119,16 +120,16 @@ public class Home extends AppCompatActivity implements LoaderManager.LoaderCallb
 
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String data) {
+        // Pegando dados da tela anterior
+        Bundle extras = getIntent().getExtras();
+
+        String name = extras.getString("name");
+        String thumbnail = extras.getString("thumbnail");
+        String series = extras.getString("series");
+        String comics = extras.getString("comics");
         try{
             // Converter a resposta em JSON
             JSONObject jsonObject = new JSONObject(data);
-
-            // Inicializar contador e itens a serem buscados
-            String name = null;
-            String thumbnail = null;
-            String series = null;
-            String comics = null;
-
 
             // Procurando pelos itens
             try {
