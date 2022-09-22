@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_2"
-    tools:context=".User">
+    tools:context=".User"
+    android:id="@+id/acPerfil">
 
     <TextView
         android:id="@+id/textView"
@@ -29,27 +30,30 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="225dp"
+        android:layout_height="220dp"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.159"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.072"
+        tools:srcCompat="@drawable/icon" />
 
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="67dp"
         android:layout_height="62dp"
-        android:layout_marginStart="16dp"
         android:background="@android:color/transparent"
+        android:backgroundTint="@color/light_blue_50"
         android:contentDescription="@string/back"
+        android:onClick="back"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="0.051"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@android:drawable/ic_menu_revert" />
+        tools:srcCompat="@android:drawable/ic_menu_revert"
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/username"
@@ -64,6 +68,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
+
     <TextView
         android:id="@+id/txtEndereco"
         android:layout_width="wrap_content"
@@ -73,19 +78,19 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username"
-        app:layout_constraintVertical_bias="0.22" />
-
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnExit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="56dp"
         android:backgroundTint="@color/black"
         android:text="Exit :("
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -97,14 +102,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
         android:layout_marginBottom="38dp"
-        android:text="@string/Localizacao"
         android:backgroundTint="@color/background"
+        android:text="@string/Localizacao"
         app:layout_constraintBottom_toTopOf="@+id/btnExit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEndereco">
-    </Button>
+        app:layout_constraintTop_toBottomOf="@+id/txtEndereco"
+        app:layout_constraintVertical_bias="1.0"></Button>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

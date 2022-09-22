@@ -1,6 +1,11 @@
 package com.example.marvelapp;
 
+import android.app.Service;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -10,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.marvelapp.DAO.UserDAO;
 import com.google.gson.Gson;
@@ -18,12 +24,17 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
     private static final String FILE_NAME = "usuarioLogado.json";
     private EditText edtTxtLogin, edtTxtPassword;
     private TextView txtcadastro;
     private Button btnLogin;
     private UserDAO userDAO;
+
+    SensorEventListener sensorEventListener;
+    SensorManager sensorManager;
+    Sensor sensor;
+    ConstraintLayout activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
         txtcadastro = (TextView) findViewById(R.id.txtCadastro);
         btnLogin = findViewById(R.id.btnLogin);
         btnLogin= (Button) findViewById(R.id.btnLogin);
+
+        //SENSOR
+        sensorManager= (SensorManager) getSystemService(Service.SENSOR_SERVICE);
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        activity = (ConstraintLayout) findViewById(R.id.acLogin);
 
         btnLogin.setOnClickListener(v -> {
             String nameLogin = String.valueOf(edtTxtLogin.getText());
@@ -113,11 +129,42 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // SENSOR
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener((SensorEventListener) this);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sensorManager.registerListener((SensorEventListener) this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
 
-    // public void home(View v){
-     //  Intent homeActivity = new Intent(this, Home.class);
-       //startActivity(homeActivity);
-    //}
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if(event.sensor.getType() == Sensor.TYPE_LIGHT){
+            if(event.values[0] < 20000){
+                edtTxtLogin.setTextColor(getResources().getColor(R.color.background));
+                edtTxtPassword.setTextColor(getResources().getColor(R.color.background));
+                activity.setBackgroundResource(R.color.black);
+                btnLogin.setBackgroundColor(getResources().getColor(R.color.light_blue_50));
+                btnLogin.setTextColor(getResources().getColor(R.color.black));
+            }
+            else{
+                edtTxtLogin.setTextColor(getResources().getColor(R.color.black));
+                edtTxtPassword.setTextColor(getResources().getColor(R.color.black));
+                activity.setBackgroundResource(R.color.background);
+                btnLogin.setBackgroundColor(getResources().getColor(R.color.black));
+                btnLogin.setTextColor(getResources().getColor(R.color.white));
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
 }

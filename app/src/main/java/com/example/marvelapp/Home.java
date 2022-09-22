@@ -44,7 +44,7 @@ public class Home extends AppCompatActivity implements LoaderManager.LoaderCallb
         btnSearch = (ImageButton) findViewById(R.id.imgBtnSrch);
         nameCharacter = (TextView) findViewById(R.id.txtNameCharacter);
         //OnClickListener do button de busca
-        //btnSearch.setOnClickListener(onClickSearch);
+        btnSearch.setOnClickListener(onClickSearch);
 
         if (getSupportLoaderManager().getLoader(0) != null) {
             getSupportLoaderManager().initLoader(0, null, this);
@@ -60,10 +60,10 @@ public class Home extends AppCompatActivity implements LoaderManager.LoaderCallb
             startActivity(user);
         }
     };
-    //Busca OnClickListener
-    //private View.OnClickListener onClickSearch = new View.OnClickListener() {
-      //  @Override
-        public void onClickSearch(View view) {
+    //Busca
+    private View.OnClickListener onClickSearch = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
 
             // TODO Auto-generated method stub
         // Verifica o status da conexão de rede
@@ -83,7 +83,7 @@ public class Home extends AppCompatActivity implements LoaderManager.LoaderCallb
 
                 Bundle queryBundle = new Bundle();
                 queryBundle.putString("queryname", queryname);
-                getSupportLoaderManager().restartLoader(0, queryBundle, this);
+                getSupportLoaderManager().restartLoader(0, queryBundle, Home.this);
                 Toast.makeText(getApplicationContext(), "Procurando pelo personagem...", Toast.LENGTH_SHORT).show();
             }
             // atualiza a textview para informar que não há conexão ou termo de busca
@@ -103,7 +103,7 @@ public class Home extends AppCompatActivity implements LoaderManager.LoaderCallb
 
         }
 
-   // };
+    };
 
 
 
@@ -124,15 +124,20 @@ public class Home extends AppCompatActivity implements LoaderManager.LoaderCallb
             JSONObject jsonObject = new JSONObject(data);
 
             //ENTRA NO ARRAY DATA
-          //  JSONArray dataComics = jsonObject.getJSONArray("comics");
-            //JSONArray dataSeries = jsonObject.getJSONArray("series");
+            JSONArray dataPerso = jsonObject.getJSONArray("data");
+
+            //Acessa o array de comics
+           JSONArray dataComics = jsonObject.getJSONArray("comics");
+
+           //acessa o array de series
+           JSONArray dataSeries = jsonObject.getJSONArray("series");
             int i = 0;
             String name = null;
             String comics = null;
             String series = null;
-            JSONArray dataPerso = jsonObject.getJSONArray("data");
 
-            while(i < dataPerso.length() && (name==null /*comics==null & series==null*/)){
+
+            while(i < dataPerso.length() && (name==null && comics==null & series==null)){
                 JSONObject personagem = dataPerso.getJSONObject(i);
                 JSONObject results = personagem.getJSONObject("results");
                 try {
@@ -141,7 +146,7 @@ public class Home extends AppCompatActivity implements LoaderManager.LoaderCallb
                 }catch(JSONException e){
                     e.printStackTrace();
                 }
-               /* JSONObject comicsJSONObject = dataComics.getJSONObject(i);
+                JSONObject comicsJSONObject = dataComics.getJSONObject(i);
                 JSONObject itemsArray = comicsJSONObject.getJSONObject("items");
                 try {
                     //Busca as comics
@@ -155,11 +160,13 @@ public class Home extends AppCompatActivity implements LoaderManager.LoaderCallb
                     series = resultSeries.getString("name");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }*/
+                }
                 i++;
             }
 
-            if(name != null){
+            if(name != null &&
+            comics != null &&
+            series!= null){
 
                 // setando a visibilidade do card
                // cardCharacter = (View) findViewById(R.id.character);
@@ -175,12 +182,11 @@ public class Home extends AppCompatActivity implements LoaderManager.LoaderCallb
                 //Picasso.get().load(Foto).into(thumbnailPerso);
 
                 //add texto series
-                //txtseries.setText(series);
+                txtseries.setText(series);
 
                 //add texto comics
 
-                //txtcomics.setText(comics);
-               // getSupportLoaderManager().destroyLoader(0);
+                txtcomics.setText(comics);
             }
 
         } catch (Exception e) {

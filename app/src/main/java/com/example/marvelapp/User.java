@@ -11,7 +11,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +31,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class User extends AppCompatActivity implements FetchAddressTask.OnTaskCompleted {
-    // Arquivo shared preferences
     // Arquivo shared preferences
     public static final String PREFERENCIAS_NAME = "com.example.android.geolocalizacao";
     private static final String TRACKING_LOCATION_KEY = "tracking_location";
@@ -56,6 +54,8 @@ public class User extends AppCompatActivity implements FetchAddressTask.OnTaskCo
     private LocationCallback mLocationCallback;
     private TextView mLocationTextView;
     private Button mLocationBtn;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
