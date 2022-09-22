@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +28,6 @@ public class Home extends AppCompatActivity implements LoaderManager.LoaderCallb
     TextView txtErrorMessage,nameCharacter, txtseries, txtcomics;
     View cardCharacter, Intro;
     Button btn;
-    ImageView thumbnailPerso;
     ImageButton btnSearch;
 
 
@@ -92,12 +90,10 @@ public class Home extends AppCompatActivity implements LoaderManager.LoaderCallb
                     txtErrorMessage.setVisibility(View.VISIBLE);
                     Intro.setVisibility(View.INVISIBLE);
                     txtErrorMessage.setText("⚠  Informe um personagem");
-                    //Toast.makeText(getApplicationContext(), "⚠  Informe um personagem", Toast.LENGTH_SHORT).show();
                 } else {
                     txtErrorMessage.setVisibility(View.VISIBLE);
                     Intro.setVisibility(View.GONE);
                     txtErrorMessage.setText("⚠  Verifique sua conexão!");
-                    // Toast.makeText(getApplicationContext(), "⚠  Verifique sua conexão!", Toast.LENGTH_SHORT).show();
                 }
             }
 
