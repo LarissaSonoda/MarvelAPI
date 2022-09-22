@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Button btnLogin;
     private UserDAO userDAO;
 
-    SensorEventListener sensorEventListener;
     SensorManager sensorManager;
     Sensor sensor;
     ConstraintLayout activity;
@@ -134,13 +133,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onPause() {
         super.onPause();
-        sensorManager.unregisterListener((SensorEventListener) this);
+        sensorManager.unregisterListener(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        sensorManager.registerListener((SensorEventListener) this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
