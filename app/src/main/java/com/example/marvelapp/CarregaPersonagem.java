@@ -7,7 +7,7 @@ import androidx.loader.content.AsyncTaskLoader;
 
 public class CarregaPersonagem extends AsyncTaskLoader<String> {
     private String nameStartsWith;
-    public CarregaPersonagem(Context context, String NAME) {
+    CarregaPersonagem(Context context, String NAME) {
         super(context);
         nameStartsWith = NAME;
 
@@ -22,6 +22,6 @@ public class CarregaPersonagem extends AsyncTaskLoader<String> {
     @Nullable
     @Override
     public String loadInBackground() {
-        return NetworkUtils.searchCharacters(nameStartsWith);
+        return NetworkUtils.searchCharacter(nameStartsWith);
     }
 }
