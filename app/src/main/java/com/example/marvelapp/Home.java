@@ -18,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 
+import com.example.marvelapp.DAO.PersonagemDAO;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,6 +50,14 @@ public class Home extends AppCompatActivity implements LoaderManager.LoaderCallb
             getSupportLoaderManager().initLoader(0, null, this);
         }
 
+    }
+
+    // SAVED INSTANCE
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String name = medtBusca.getText().toString();
+        outState.putString("CharacterName", name);
     }
 //Access User class
     private View.OnClickListener onClickUser = new View.OnClickListener(){
@@ -95,6 +105,16 @@ public class Home extends AppCompatActivity implements LoaderManager.LoaderCallb
                     Intro.setVisibility(View.GONE);
                     txtErrorMessage.setText("⚠  Verifique sua conexão!");
                 }
+            }
+
+            //Inserir personagem
+            Personagens personagens = new Personagens(null, queryname);
+            PersonagemDAO personagemDAO = new PersonagemDAO(Home.this);
+
+            try{
+                personagemDAO.insertPerso(personagens);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
         }
